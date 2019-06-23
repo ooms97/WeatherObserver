@@ -1,7 +1,9 @@
 package com.example.weatherobserver;
 
 import android.app.Activity;
-import android.widget.TextView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class WeekDisplay implements Observer, DisplayData {
     private Subject weatherData;
@@ -16,13 +18,21 @@ public class WeekDisplay implements Observer, DisplayData {
 
     @Override
     public void display() {
-        TextView textView = mActivity.findViewById(R.id.tv);
-        StringBuilder sb = new StringBuilder();
+        ListView listView = (ListView) mActivity.findViewById(R.id.list_item);
+        ArrayList<SingleWeatherItem> items = new ArrayList<>();
+
         for(ConsolidatedWeather consolidatedWeather : consolidatedWeathers){
-            sb.append("Temperature: " + consolidatedWeather.the_temp.substring(0, 2) + "\n");
+            SingleWeatherItem singleWeatherItem = new SingleWeatherItem();
+            singleWeatherItem.setMax_temp(consolidatedWeather.max_temp.substring(0,4));
+            singleWeatherItem.setMin_temp(consolidatedWeather.min_temp.substring(0,4));
+            singleWeatherItem.setWeatherStatus(consolidatedWeather.weather_state_name);
+
+            items.add(singleWeatherItem);
         }
 
-        textView.setText(sb.toString());
+        WeatherListAdapter weatherListAdapter = new WeatherListAdapter(mActivity, items);
+        listView.setAdapter(weatherListAdapter);
+        weatherListAdapter.notifyDataSetChanged();
     }
 
     @Override
