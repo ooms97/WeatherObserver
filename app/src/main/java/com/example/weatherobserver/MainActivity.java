@@ -1,7 +1,10 @@
 package com.example.weatherobserver;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -32,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
+    }
 
-        WeatherData weatherData = new WeatherData(this);
-        WeekDisplay weekDisplay = new WeekDisplay(this, weatherData);
-
-        weatherData.getMeasurements();
+    public void onWeatherClick(View view){
+        Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+        startActivity(intent);
     }
 }
