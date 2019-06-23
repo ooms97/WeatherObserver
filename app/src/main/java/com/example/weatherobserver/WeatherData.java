@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 public class WeatherData implements Subject {
     private final String TAG = WeatherData.class.getSimpleName();
-    private static final String URL = "https://www.metaweather.com/api/location/4118/";
+    private static final String baseURL = "https://www.metaweather.com/api/location/search/?lattlong=";
+    private static String URL = "https://www.metaweather.com/api/location/1000/";
     private ArrayList<Observer> observers;
     private ConsolidatedWeather[] consolidatedWeather;
     private Context mContext;
@@ -26,6 +27,12 @@ public class WeatherData implements Subject {
     public WeatherData(Context context) {
         observers = new ArrayList<>();
         mContext = context;
+    }
+
+    public WeatherData(Context context, double latitude, double longitude){
+        observers = new ArrayList<>();
+        mContext = context;
+        setURL(latitude, longitude);
     }
 
     @Override
@@ -44,6 +51,10 @@ public class WeatherData implements Subject {
         for(Observer o: observers){
             o.update(consolidatedWeather);
         }
+    }
+
+    public void setURL(double latitude, double longitude) {
+        this.URL = baseURL + latitude + "," + longitude;
     }
 
     public void measurementsChanged(){
