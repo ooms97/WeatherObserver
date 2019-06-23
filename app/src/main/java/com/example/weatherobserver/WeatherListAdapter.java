@@ -49,19 +49,31 @@ public class WeatherListAdapter extends BaseAdapter {
 
         SingleWeatherItem currentItem = (SingleWeatherItem) getItem(position);
         viewHolder.weatherIcon.setImageResource(getImageResource(currentItem.getWeatherStatus()));
-        viewHolder.minTemp.setText("Min Temp: " + currentItem.getMin_temp());
-        viewHolder.maxTemp.setText("Max Temp: " + currentItem.getMax_temp());
+        viewHolder.applicableDate.setText(currentItem.getApplicableDate());
+        viewHolder.visibility.setText("Visibility: " + currentItem.getVisibility() + " miles");
+        viewHolder.humidity.setText("Humidity: " + currentItem.getHumidity() + "%");
+        viewHolder.pressure.setText("Pressure: " + currentItem.getPressure() + " mb");
+        viewHolder.minTemp.setText("Min Temp: " + currentItem.getMin_temp() + (char) 0x00B0 + "C");
+        viewHolder.maxTemp.setText("Max Temp: " + currentItem.getMax_temp() + (char) 0x00B0 + "C");
 
         return convertView;
     }
 
     private class ViewHolder {
         ImageView weatherIcon;
+        TextView humidity;
+        TextView visibility;
+        TextView pressure;
+        TextView applicableDate;
         TextView minTemp;
         TextView maxTemp;
 
         public ViewHolder(View view) {
             weatherIcon = (ImageView) view.findViewById(R.id.weatherStatusIcon);
+            applicableDate = (TextView) view.findViewById(R.id.applicableDate);
+            humidity = (TextView) view.findViewById(R.id.humidity);
+            visibility = (TextView) view.findViewById(R.id.visibility);
+            pressure = (TextView) view.findViewById(R.id.pressure);
             minTemp = (TextView) view.findViewById(R.id.minTemp);
             maxTemp = (TextView) view.findViewById(R.id.maxTemp);
         }
