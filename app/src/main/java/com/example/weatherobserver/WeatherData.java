@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class WeatherData implements Subject {
     private final String TAG = WeatherData.class.getSimpleName();
     private static final String baseURL = "https://www.metaweather.com/api/location/search/?lattlong=";
-    private static String URL = "https://www.metaweather.com/api/location/1000/";
+    private static String URL = "https://www.metaweather.com/api/location/4118/";
     private ArrayList<Observer> observers;
     private ConsolidatedWeather[] consolidatedWeather;
     private Context mContext;
